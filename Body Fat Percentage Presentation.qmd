@@ -25,6 +25,12 @@ glimpse(bodyfat)
 
 ### Model Selection 
 
+```{r,warning=FALSE, message=FALSE}
+library(GGally)
+GGally::ggpairs(bodyfat) + theme_bw()
+```
+
+
 ```{r, warning =FALSE, message=FALSE}
 library(ggplot2)
 library(tidyr)
