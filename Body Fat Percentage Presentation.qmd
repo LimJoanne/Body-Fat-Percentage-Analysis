@@ -23,51 +23,72 @@ glimpse(bodyfat)
 library(stats)
 ```
 
-
-```{r}
-model <- lm(Pct.BF ~ ., data = bodyfat)
-
-summary(model)$coefficients[,4]
-```
-
-```{r}
-# Get the p-values from the model summary
-p_values <- summary(model)$coefficients[,4]
-
-# Remove the p-value for 'Density'
-p_values <- p_values[!names(p_values) %in% c("Density")]
-
-# Order the variables by p-value and get the first 3
-top_vars <- names(sort(p_values))[1:5]
-
-print(top_vars)
-
-```
-
-
-
 ---
 
-### Model Selection 
-
-```{r, warning =FALSE, message=FALSE}
-library(ggplot2)
-library(tidyr)
-
-# Reshape data
-long_bodyfat <- bodyfat %>%
-  pivot_longer(cols = -Pct.BF, names_to = "variable", values_to = "value")
-
-# Plot
-p <- ggplot(long_bodyfat, aes(x = Pct.BF, y = value)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE, color = "blue") +
-  facet_wrap(~ variable, ncol = 4) +
-  theme_bw()
-
-print(p)
+### Data Cleaning
+We noticed that Height and Weight in the file was in inches and pounds respectively. However, we need to calculate BMI for later use and BMI formula is: $BMI = \frac{Weight(kg)}{Height(m)^2}$. 
+```{r}
+bodyfat$Height <- bodyfat$Height * 0.0254
+bodyfat$Weight <- bodyfat$Weight * 0.453592
 ```
 
+Create a new column with BMI
+```{r}
+bodyfat$BMI <- bodyfat$Weight / (bodyfat$Height^2)
+```
+
+---
+```{r, warning=FALSE}
+library(ggplot2)
+
+# List of independent variables
+variables <- c("Density", "Age", "Weight", "Height", "Neck", "Chest", "Abdomen", "Hip", 
+               "Thigh", "Knee", "Ankle", "Bicep", "Forearm", "Wrist")
+
+# For each variable, create and display a scatter plot against Pct.BF
+for (var in variables) {
+  plot <- ggplot(bodyfat, aes(x = .data[[var]], y = Pct.BF)) +
+      geom_point() +
+      geom_smooth(method = "lm", color = "blue", se = FALSE) +  # Adding the blue regression line
+      labs(title = paste("Scatterplot of", var, "vs Pct.BF"),
+           x = var,
+           y = "Pct.BF") +
+      theme_minimal()
+  print(plot)
+}
+```
+```{r}
+library(ggplot2)
+
+# List of independent variables
+variables <- c("Density", "Age", "Weight", "Height", "Neck", "Chest", "Abdomen", "Hip", 
+               "Thigh", "Knee", "Ankle", "Bicep", "Forearm", "Wrist")
+
+# Loop through each variable, fit a model, and then plot the residuals
+for (var in variables) {
+  # Construct formula using paste
+  formula_str <- paste("Pct.BF ~", var)
+  model <- lm(formula_str, data=bodyfat)
+  
+  # Compute the residuals
+  residuals <- residuals(model)
+  
+  # Create the plot
+  plot <- ggplot(bodyfat, aes_string(x=var, y=residuals)) +
+    geom_point() +
+    geom_hline(yintercept=0, color="blue") + 
+    labs(title=paste("Residual Plot for", var),
+         x=var,
+         y="Residuals") +
+    theme_minimal()
+  
+  print(plot)
+}
+
+```
+
+
+### Model Selection 
 
 ```{r}
 M0 = lm(Pct.BF ~ ., data = bodyfat) #full model
@@ -83,19 +104,20 @@ summary(step.back.aic)
 summary(step.fwd.aic)
 ```
 
-
-
 ```{r}
+bodyfat <- bodyfat %>% 
+  filter(Pct.BF > 0)
+
 #log linear
-lm3 <- lm(log(Pct.BF) ~Age + Abdomen, data = bodyfat)
-summary(lm3)
+lm_log_linear <- lm(log(Pct.BF) ~ Age + BMI, data = bodyfat)
+summary(lm_log_linear)
 ```
 
 ```{r}
 #linear log
 
 # Fitting the linear-log model
-lm_linear_log <- lm(Pct.BF ~ log(Age) + log(Abdomen), data = bodyfat)
+lm_linear_log <- lm(Pct.BF ~ log(Age) + log(BMI), data = bodyfat)
 
 # Getting the summary
 summary(lm_linear_log)
@@ -104,13 +126,13 @@ summary(lm_linear_log)
 
 ```{r}
 #log-log
-lm_log_log <- lm(log(Pct.BF) ~ log(Age) + log(Abdomen), data = bodyfat)
+lm_log_log <- lm(log(Pct.BF) ~ log(Age) + log(BMI), data = bodyfat)
 
 # Getting the summary
 summary(lm_log_log)
 ```
 
-```{r}
+```{r, warning=FALSE}
 library(sjPlot)
 tab_model(M0, step.back.aic, step.fwd.aic, lm3, lm_linear_log, lm_log_log,
           dv.labels = c("Full", "Backward", "Forward", "Log-Linear", "Linear-Log", "Log-Log"),
