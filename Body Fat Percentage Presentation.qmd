@@ -30,6 +30,20 @@ model <- lm(Pct.BF ~ ., data = bodyfat)
 summary(model)$coefficients[,4]
 ```
 
+```{r}
+# Get the p-values from the model summary
+p_values <- summary(model)$coefficients[,4]
+
+# Remove the p-value for 'Density'
+p_values <- p_values[!names(p_values) %in% c("Density")]
+
+# Order the variables by p-value and get the first 3
+top_vars <- names(sort(p_values))[1:5]
+
+print(top_vars)
+
+```
+
 
 
 ---
@@ -80,7 +94,7 @@ bodyfat <- bodyfat %>%
   filter(Pct.BF > 0) %>%
   mutate(lpct_bf = log(Pct.BF))
 
-lm2 <- lm(Pct.BF ~ Weight + Height + Age, data = bodyfat)
+lm2 <- lm(Pct.BF ~ Age + Ankle + Bicep + Weight, data = bodyfat)
 summary(lm2)
 ```
 
