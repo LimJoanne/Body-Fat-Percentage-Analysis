@@ -1,0 +1,75 @@
+---
+title: "Body Fat Percentage Presentation"
+subtitle: "Group 013E01"
+author: "Joanne Lim, John Fu, Haoyuan Gao, Zhenchen Yi"
+format: 
+  revealjs:
+    auto-slide: 20000
+    embed-resources: true
+    css: custom.css
+---
+
+### Data Description
+
+-   Accurately body fat measurement is vital but often inconvenient and expensive
+-   Can we use simpler measurements like height, weight, and circumferences for estimates?
+-   The data set [bodyfat](https://dasl.datadescription.com/datafile/bodyfat) contains body fat percentages and other related measurements for 250 men. These measurements, which include height, weight and various body circumferences, were collected to explore alternatives to underwater body fat assessments.
+
+```{r, warning = FALSE, message = FALSE}
+library(tidyverse)
+bodyfat <- read.table("bodyfat.txt", header = TRUE)
+glimpse(bodyfat)
+```
+
+---
+
+### Model Selection 
+
+```{r, warning =FALSE, message=FALSE}
+library(ggplot2)
+library(tidyr)
+
+# Reshape data
+long_bodyfat <- bodyfat %>%
+  pivot_longer(cols = -Pct.BF, names_to = "variable", values_to = "value")
+
+# Plot
+p <- ggplot(long_bodyfat, aes(x = Pct.BF, y = value)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +
+  facet_wrap(~ variable, ncol = 5) +
+  theme_bw()
+
+print(p)
+```
+
+
+```{r}
+M0 = lm(Pct.BF ~ ., data = bodyfat) #full model
+M1 = lm(Pct.BF ~ 1, data = bodyfat) #null model
+
+step.back.aic = step(M0,
+                     direction = "backward",
+                     trace = FALSE)
+step.fwd.aic = step(M1, scope = list(lower = M1, upper = M0),
+                    direction = "forward", trace = FALSE)
+
+summary(step.back.aic)
+summary(step.fwd.aic)
+```
+
+```{r}
+bodyfat <- bodyfat %>% 
+  filter(Pct.BF > 0) %>%
+  mutate(lpct_bf = log(Pct.BF))
+
+lm2 <- lm(Pct.BF ~ Weight + Height + Age, data = bodyfat)
+summary(lm2)
+```
+
+
+
+
+
+
+
