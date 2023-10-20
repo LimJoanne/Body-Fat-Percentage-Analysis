@@ -1,0 +1,11 @@
+.reveal .slides section {
+    font-size: 0.5em;  /* Adjust this value as needed */
+    line-height: 1.2em;  /* Adjust line height as needed */
+    
+    /* Additional CSS for top-left alignment */
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-top: 100px;  /* adjust as needed */
+    padding-left: 100px; /* adjust as needed */
+}

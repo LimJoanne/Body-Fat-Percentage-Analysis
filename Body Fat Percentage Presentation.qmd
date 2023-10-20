@@ -25,47 +25,22 @@ library(stats)
 
 ---
 
-### Data Cleaning
-We noticed that Height and Weight in the file was in inches and pounds respectively. However, we need to calculate BMI for later use and BMI formula is: $BMI = \frac{Weight(kg)}{Height(m)^2}$. 
-```{r}
-bodyfat$Height <- bodyfat$Height * 0.0254
-bodyfat$Weight <- bodyfat$Weight * 0.453592
-```
+### Check Linearity
 
-Create a new column with BMI
-```{r}
-bodyfat$BMI <- bodyfat$Weight / (bodyfat$Height^2)
-```
-
----
-```{r, warning=FALSE}
+```{r, warning=FALSE, message=FALSE}
+library(gridExtra)
 library(ggplot2)
 
 # List of independent variables
-variables <- c("Density", "Age", "Weight", "Height", "Neck", "Chest", "Abdomen", "Hip", 
-               "Thigh", "Knee", "Ankle", "Bicep", "Forearm", "Wrist")
+variables <- c("Density", "Age", "Weight", "Height", "Neck", "Chest", "Abdomen", "Hip", "Thigh", "Knee", "Ankle", "Bicep", "Forearm", "Wrist")
 
-# For each variable, create and display a scatter plot against Pct.BF
-for (var in variables) {
-  plot <- ggplot(bodyfat, aes(x = .data[[var]], y = Pct.BF)) +
-      geom_point() +
-      geom_smooth(method = "lm", color = "blue", se = FALSE) +  # Adding the blue regression line
-      labs(title = paste("Scatterplot of", var, "vs Pct.BF"),
-           x = var,
-           y = "Pct.BF") +
-      theme_minimal()
-  print(plot)
-}
-```
-```{r}
-library(ggplot2)
+# Create a list to store all plots
+plot_list <- list()
 
-# List of independent variables
-variables <- c("Density", "Age", "Weight", "Height", "Neck", "Chest", "Abdomen", "Hip", 
-               "Thigh", "Knee", "Ankle", "Bicep", "Forearm", "Wrist")
-
-# Loop through each variable, fit a model, and then plot the residuals
-for (var in variables) {
+# Loop through each variable, fit a model, and then store the residual plot in the list
+for (i in seq_along(variables)) {
+  var <- variables[i]
+  
   # Construct formula using paste
   formula_str <- paste("Pct.BF ~", var)
   model <- lm(formula_str, data=bodyfat)
@@ -76,24 +51,37 @@ for (var in variables) {
   # Create the plot
   plot <- ggplot(bodyfat, aes_string(x=var, y=residuals)) +
     geom_point() +
-    geom_hline(yintercept=0, color="blue") + 
+    geom_hline(yintercept=0, color="red") + 
+    geom_smooth(method="loess", se=FALSE, color="blue") +
     labs(title=paste("Residual Plot for", var),
          x=var,
          y="Residuals") +
-    theme_minimal()
+    theme_minimal() +
+    theme(text = element_text(size = 8))
   
-  print(plot)
+  # Add the plot to the list
+  plot_list[[i]] <- plot
 }
 
+# Arrange all the plots on one page
+grid.arrange(grobs=plot_list, ncol=4)  # Adjust ncol for desired number of columns
 ```
 
+--- 
 
-### Model Selection 
+### Null and Full Model
 
 ```{r}
 M0 = lm(Pct.BF ~ ., data = bodyfat) #full model
 M1 = lm(Pct.BF ~ 1, data = bodyfat) #null model
 
+summary(M0, data = bodyfat)
+```
+
+---
+### Backward and Forward stepwise selection
+
+```{r}
 step.back.aic = step(M0,
                      direction = "backward",
                      trace = FALSE)
@@ -104,37 +92,46 @@ summary(step.back.aic)
 summary(step.fwd.aic)
 ```
 
+---
+
 ```{r}
 bodyfat <- bodyfat %>% 
   filter(Pct.BF > 0)
 
 #log linear
-lm_log_linear <- lm(log(Pct.BF) ~ Age + BMI, data = bodyfat)
+lm_log_linear <- lm(log(Pct.BF) ~ Density + Age + Weight + Height + Neck + Chest + Abdomen + Waist + Hip + Thigh + Knee + Ankle + Bicep + Forearm + Wrist, data = bodyfat)
 summary(lm_log_linear)
 ```
 
+---
+
+We observed that the relationship between Neck, Abdomen, Bicep, Forearm, Ankle and Pct.BF has a non-linear relationship, so we will transform these variable.
 ```{r}
 #linear log
 
 # Fitting the linear-log model
-lm_linear_log <- lm(Pct.BF ~ log(Age) + log(BMI), data = bodyfat)
+lm_linear_log <- lm(Pct.BF ~ Density + Age + Weight + Height + log(Neck) + Chest + log(Abdomen) + Waist + Hip + Thigh + Knee + log(Ankle) + log(Bicep) + log(Forearm) + Wrist, data = bodyfat)
 
 # Getting the summary
 summary(lm_linear_log)
 
 ```
 
+---
+
 ```{r}
 #log-log
-lm_log_log <- lm(log(Pct.BF) ~ log(Age) + log(BMI), data = bodyfat)
+lm_log_log <- lm(log(Pct.BF) ~ Density + Age + Weight + Height + log(Neck) + Chest + log(Abdomen) + Waist + Hip + Thigh + Knee + log(Ankle) + log(Bicep) + log(Forearm) + Wrist, data = bodyfat)
 
 # Getting the summary
 summary(lm_log_log)
 ```
 
-```{r, warning=FALSE}
+---
+
+```{r, warning=FALSE, message=FALSE}
 library(sjPlot)
-tab_model(M0, step.back.aic, step.fwd.aic, lm3, lm_linear_log, lm_log_log,
+tab_model(M0, step.back.aic, step.fwd.aic, lm_log_linear, lm_linear_log, lm_log_log,
           dv.labels = c("Full", "Backward", "Forward", "Log-Linear", "Linear-Log", "Log-Log"),
           show.ci = F, show.aic=T)
 ```
