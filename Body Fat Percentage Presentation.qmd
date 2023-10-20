@@ -17,6 +17,7 @@ format:
 
 ```{r, warning = FALSE, message = FALSE}
 library(tidyverse)
+library(ggplot2)
 bodyfat <- read.table("bodyfat.txt", header = TRUE)
 glimpse(bodyfat)
 ```
