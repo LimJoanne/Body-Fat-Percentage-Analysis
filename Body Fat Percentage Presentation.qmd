@@ -98,8 +98,42 @@ lm2 <- lm(Pct.BF ~ Age + Ankle + Bicep + Weight, data = bodyfat)
 summary(lm2)
 ```
 
+```{r}
+#log linear
+lm3 <- lm(Pct.BF ~ Age + Abdomen, data = bodyfat)
+summary(lm3)
+```
 
+```{r}
+#linear log
 
+# Transforming the variables
+bodyfat <- bodyfat %>%
+  mutate(log_age = log(Age),
+         log_abdomen = log(Abdomen))
+
+# Fitting the linear-log model
+lm_linear_log <- lm(Pct.BF ~ log_age + log_abdomen, data = bodyfat)
+
+# Getting the summary
+summary(lm_linear_log)
+
+```
+
+```{r}
+#log-log
+lm_log_log <- lm(lpct_bf ~ log_age + log_abdomen, data = bodyfat)
+
+# Getting the summary
+summary(lm_log_log)
+```
+
+```{r}
+library(sjPlot)
+tab_model(lm1, pollut_step,
+          dv.labels = c("Full", "Backward"),
+          show.ci = F, show.aic=T)
+```
 
 
 
