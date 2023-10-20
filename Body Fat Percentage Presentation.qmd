@@ -50,12 +50,6 @@ print(top_vars)
 
 ### Model Selection 
 
-```{r,warning=FALSE, message=FALSE}
-library(GGally)
-GGally::ggpairs(bodyfat) + theme_bw()
-```
-
-
 ```{r, warning =FALSE, message=FALSE}
 library(ggplot2)
 library(tidyr)
@@ -68,7 +62,7 @@ long_bodyfat <- bodyfat %>%
 p <- ggplot(long_bodyfat, aes(x = Pct.BF, y = value)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE, color = "blue") +
-  facet_wrap(~ variable, ncol = 5) +
+  facet_wrap(~ variable, ncol = 4) +
   theme_bw()
 
 print(p)
@@ -89,31 +83,19 @@ summary(step.back.aic)
 summary(step.fwd.aic)
 ```
 
-```{r}
-bodyfat <- bodyfat %>% 
-  filter(Pct.BF > 0) %>%
-  mutate(lpct_bf = log(Pct.BF))
 
-lm2 <- lm(Pct.BF ~ Age + Ankle + Bicep + Weight, data = bodyfat)
-summary(lm2)
-```
 
 ```{r}
 #log linear
-lm3 <- lm(Pct.BF ~ Age + Abdomen, data = bodyfat)
+lm3 <- lm(log(Pct.BF) ~Age + Abdomen, data = bodyfat)
 summary(lm3)
 ```
 
 ```{r}
 #linear log
 
-# Transforming the variables
-bodyfat <- bodyfat %>%
-  mutate(log_age = log(Age),
-         log_abdomen = log(Abdomen))
-
 # Fitting the linear-log model
-lm_linear_log <- lm(Pct.BF ~ log_age + log_abdomen, data = bodyfat)
+lm_linear_log <- lm(Pct.BF ~ log(Age) + log(Abdomen), data = bodyfat)
 
 # Getting the summary
 summary(lm_linear_log)
@@ -122,7 +104,7 @@ summary(lm_linear_log)
 
 ```{r}
 #log-log
-lm_log_log <- lm(lpct_bf ~ log_age + log_abdomen, data = bodyfat)
+lm_log_log <- lm(log(Pct.BF) ~ log(Age) + log(Abdomen), data = bodyfat)
 
 # Getting the summary
 summary(lm_log_log)
@@ -130,8 +112,8 @@ summary(lm_log_log)
 
 ```{r}
 library(sjPlot)
-tab_model(lm1, pollut_step,
-          dv.labels = c("Full", "Backward"),
+tab_model(M0, step.back.aic, step.fwd.aic, lm3, lm_linear_log, lm_log_log,
+          dv.labels = c("Full", "Backward", "Forward", "Log-Linear", "Linear-Log", "Log-Log"),
           show.ci = F, show.aic=T)
 ```
 
