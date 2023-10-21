@@ -147,71 +147,83 @@ tab_model(M0, step.back.aic, step.fwd.aic, lm_log_linear, lm_linear_log, lm_log_
 $$Pct.BF = 442.38 - 406.49 \times Density + 0.01 \times Age + 0.06 \times Abdomen$$
 
 ## Check Linearlity
+```{r}
+lm1 = lm(Pct.BF ~ Density, data = bodyfat)
+lm2 = lm(Pct.BF ~ Age, data = bodyfat)
+lm3 = lm(Pct.BF ~ Abdomen, data = bodyfat)
+
+#fitted values and residuals
+bodyfat = bodyfat %>% 
+  mutate(
+    resid1 = lm1$residuals,
+    fitted1 = lm1$fitted.values,
+    resid2 = lm2$residuals,
+    fitted2 = lm2$fitted.values,
+    resid3 = lm3$residuals,
+    fitted3 = lm3$fitted.values
+  )
+```
+
+```{r}
+p1 = bodyfat %>% ggplot() +
+  aes(x = Density, y = Pct.BF)+
+  geom_point(size=3) +
+  labs(x = "Density",
+       y = "Body Fat Percentage") +
+  geom_smooth(method = "lm", se = FALSE)
+
+p2 = bodyfat %>% ggplot() +
+  aes(x = Density, y = resid1) +
+  geom_point(size = 3) +
+  labs(x = "Density",
+       y = "Residual") +
+  geom_hline(yintercept = 0)
+
+p3 = bodyfat %>% ggplot() +
+  aes(x = Age, y = Pct.BF)+
+  geom_point(size=3) +
+  labs(x = "Age",
+       y = "Body Fat Percentage") +
+  geom_smooth(method = "lm", se = FALSE)
+
+p4 = bodyfat %>% ggplot() +
+  aes(x = Age, y = resid2) +
+  geom_point(size = 3) +
+  labs(x = "Age",
+       y = "Residual") +
+  geom_hline(yintercept = 0)
+
+p5 = bodyfat %>% ggplot() +
+  aes(x = Abdomen, y = Pct.BF)+
+  geom_point(size=3) +
+  labs(x = "Abdomen",
+       y = "Body Fat Percentage") +
+  geom_smooth(method = "lm", se = FALSE)
+
+p6 = bodyfat %>% ggplot() +
+  aes(x = Abdomen, y = resid3) +
+  geom_point(size = 3) +
+  labs(x = "Abdomen",
+       y = "Residual") +
+  geom_hline(yintercept = 0)
+```
 
 Age:
 ```{r}
-formula_str <- paste("Pct.BF ~", "Age")
-model <- lm(formula_str, data=bodyfat)
-
-# Compute the residuals
-residuals <- residuals(model)
-
-# Create the plot
-plot <- ggplot(bodyfat, aes_string(x=var, y=residuals)) +
-  geom_point() +
-  geom_hline(yintercept=0, color="red") + 
-  geom_smooth(method="loess", se=FALSE, color="blue") +
-  labs(title=paste("Residual Plot for", var),
-       x="Age",
-       y="Residuals") +
-  theme_minimal() +
-  theme(text = element_text(size = 8))
-plot
+grid.arrange(p3, p4, ncol = 2)
 ```
 ## Check Linearlity
 
 Density:
 ```{r}
-formula_str <- paste("Pct.BF ~", "Density")
-model <- lm(formula_str, data=bodyfat)
-
-# Compute the residuals
-residuals <- residuals(model)
-
-# Create the plot
-plot <- ggplot(bodyfat, aes_string(x=var, y=residuals)) +
-  geom_point() +
-  geom_hline(yintercept=0, color="red") + 
-  geom_smooth(method="loess", se=FALSE, color="blue") +
-  labs(title=paste("Residual Plot for", var),
-       x="Density",
-       y="Residuals") +
-  theme_minimal() +
-  theme(text = element_text(size = 8))
-plot
+grid.arrange(p1, p2, ncol = 2)
 ```
 
 ## Check Linearity
 
 Abdomen:
 ```{r}
-formula_str <- paste("Pct.BF ~", "Abdomen")
-model <- lm(formula_str, data=bodyfat)
-
-# Compute the residuals
-residuals <- residuals(model)
-
-# Create the plot
-plot <- ggplot(bodyfat, aes_string(x=var, y=residuals)) +
-  geom_point() +
-  geom_hline(yintercept=0, color="red") + 
-  geom_smooth(method="loess", se=FALSE, color="blue") +
-  labs(title=paste("Residual Plot for", var),
-       x="Abdomen",
-       y="Residuals") +
-  theme_minimal() +
-  theme(text = element_text(size = 8))
-plot
+grid.arrange(p5, p6, ncol = 2)
 ```
 
 
@@ -219,13 +231,8 @@ plot
 ## Check homoscedasticity
 
 ```{r}
-plot.new()
-
-# Create a scatterplot of residuals vs. fitted values
-residuals <- residuals(step.back.aic)  # Replace step.back.aic with your final model
-fitted_values <- fitted(step.back.aic)  # Replace step.back.aic with your final model
-plot(fitted_values, residuals, xlab = "Fitted Values", ylab = "Residuals", main = "Residuals vs. Fitted Values")
-
+library(ggfortify)
+autoplot(step.back.aic, which = 1)
 ```
 
 ```{r}
@@ -235,15 +242,9 @@ bptest(step.back.aic)
 ## Check Normality of Residuals
 
 ```{r}
-
-
-bodyfat %>%
-  ggplot() +
-  aes(sample = residuals(lm_log_log)) +  # Replace step.back.aic with your final model
-  geom_qq(size = 2) +
-  geom_qq_line() +
-  labs(title = "Q-Q Plot of Residuals for Normality Check")
+autoplot(step.back.aic, which = 2)
 ```
+
 
 
 
