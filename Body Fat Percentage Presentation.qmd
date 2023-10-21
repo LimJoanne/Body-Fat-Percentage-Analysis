@@ -18,6 +18,7 @@ format:
     smaller: true
     pdf-max-pages-per-slide: 1
     history: false # don't add each slide to browser history
+    auto-slide: 20000
 bibliography: pres_bib.bib
 csl: apa-old-doi-prefix.csl
 execute:
@@ -142,6 +143,8 @@ tab_model(M0, step.back.aic, step.fwd.aic, lm_log_linear, lm_linear_log, lm_log_
 - Generally, higher values of R-squared are better, but a very high R-squared could suggest overfitting, especially if it is much higher than the adjusted R-squared.
 - Lower AIC values indicate a better-fitting model. 
 - We can conclude from the table, backward selection model will be the most appropriate one as it has the lowest AIC values and its R-squared and adjusted R-squared is the same.
+- Fitted model for the backward selection model:
+$$Pct.BF = 442.38 - 406.49 \times Density + 0.01 \times Age + 0.06 \times Abdomen$$
 
 
 
