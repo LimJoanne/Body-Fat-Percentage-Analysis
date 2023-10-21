@@ -14,7 +14,8 @@ format:
     code-line-numbers: false
     embed-resources: true
     slide-number: c
-    scrollable: false
+    scrollable: true
+    smaller: true
     pdf-max-pages-per-slide: 1
     history: false # don't add each slide to browser history
 bibliography: pres_bib.bib
@@ -103,7 +104,6 @@ summary(step.back.aic)
 summary(step.fwd.aic)
 ```
 
-## log-linear
 ```{r}
 bodyfat <- bodyfat %>% 
   filter(Pct.BF > 0)
@@ -113,39 +113,35 @@ lm_log_linear <- lm(log(Pct.BF) ~ Density + Age + Weight + Height + Neck + Chest
 summary(lm_log_linear)
 ```
 
-## linear-log
-We observed that the relationship between Neck, Abdomen, Bicep, Forearm, Ankle and Pct.BF has a non-linear relationship, so we will transform these variable.
 ```{r}
 #linear log
 
 # Fitting the linear-log model
 lm_linear_log <- lm(Pct.BF ~ Density + Age + Weight + Height + log(Neck) + Chest + log(Abdomen) + Waist + Hip + Thigh + Knee + log(Ankle) + log(Bicep) + log(Forearm) + Wrist, data = bodyfat)
 
-# Getting the summary
-summary(lm_linear_log)
-
 ```
 
-## log-log
 ```{r}
 #log-log
 lm_log_log <- lm(log(Pct.BF) ~ Density + Age + Weight + Height + log(Neck) + Chest + log(Abdomen) + Waist + Hip + Thigh + Knee + log(Ankle) + log(Bicep) + log(Forearm) + Wrist, data = bodyfat)
-
-# Getting the summary
-summary(lm_log_log)
 ```
 
-## nothing
+## Summary of all 5 models
+
+- We observed that the relationship between Neck, Abdomen, Bicep, Forearm, Ankle, and Pct.BF has a non-linear relationship, so we will transform these variables when we perform linear-log and log-log models.
 ```{r, warning=FALSE, message=FALSE}
 library(sjPlot)
-tab_model(M0, step.back.aic, step.fwd.aic, lm_log_linear, lm_linear_log, lm_log_log,
+tab_model(M0, step.back.aic, step.fwd.aic, lm_log_linear, lm_linear_log, lm_log_log, 
           dv.labels = c("Full", "Backward", "Forward", "Log-Linear", "Linear-Log", "Log-Log"),
-          show.ci = F, show.aic=T)
+          show.ci = F, show.aic = T)
+
 ```
 
+## Model selection conclusion
 
-
-
+- Generally, higher values of R-squared are better, but a very high R-squared could suggest overfitting, especially if it is much higher than the adjusted R-squared.
+- Lower AIC values indicate a better-fitting model. 
+- We can conclude from the table, backward selection model will be the most appropriate one as it has the lowest AIC values and its R-squared and adjusted R-squared is the same.
 
 
 
