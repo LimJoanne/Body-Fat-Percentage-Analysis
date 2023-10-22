@@ -168,7 +168,8 @@ p6 = bodyfat %>% ggplot() +
 ```{r}
 grid.arrange(p3, p4, ncol = 2)
 ```
-- According to the linearity of Pct.BF abd age graph we can see there is one person which Pct.BF is 0, and the various age groups are not evenly distributed in the dataset. This may cause the deviation in the analyse.
+- The plot on the left shows the relationship between Age and Body Fat Percentage. It is suggesting a general trend where body fat percentage might increase with age.
+- According to the linearity of Pct.BF and age graph we can see that there is one person which Pct.BF is 0, and the various age groups are not evenly distributed in the data set. This may cause the deviation in the analyse. However, given there is no specific patterns and the spread of residuals is roughly even above and below the central line and across the range of fitted values, linearity and homoskedasticity assumption is reasonably met.
 
 ## Assumption checking: Pct.BF vs Density
 
@@ -176,7 +177,8 @@ grid.arrange(p3, p4, ncol = 2)
 ```{r}
 grid.arrange(p1, p2, ncol = 2)
 ```
-- From the graph we can see that the Density almost perform the same as the variable Pct.BF.
+- The relationship between Density and Body Fat Percentage appears to be quite strong and linear. As Density goes up, Pct.BF does down, and vice versa. The distribution of data points closely follows the regression line.
+- The residuals showing on the right plot indicates strong linearity without any discernible pattern.
 
 ## Assumption checking: Pct.BF vs Abdomen
 
@@ -185,6 +187,8 @@ grid.arrange(p1, p2, ncol = 2)
 grid.arrange(p5, p6, ncol = 2)
 ```
 
+- There seems to be a fairly strong positive linear correlation between Abdomen and Body Fat Percentage. As abdomen size increases, Pct.BF also tends to go up.
+- The spread of residuals is roughly even above and below the central line and across the range of fitted values.
 
 ## Assumption checking for the model (1)
 
@@ -301,6 +305,6 @@ grid.arrange(g1, g2, g3, ncol = 1)
 - Higher values of R-squared are better.
 - Comparing the full model with 3 simple model:
 1. Simple_age and simple_abdomen has relatively higher MAE and RMSE value
-2. Simple_density has the lowest Rsquared value.
+2. Simple_density has the lowest R-squared value.
 
 Therefore, full($Pct.BF = 442.38 - 406.49 \times Density + 0.01 \times Age + 0.06 \times Abdomen$.) will be the best model.
