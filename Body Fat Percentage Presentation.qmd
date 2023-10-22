@@ -101,7 +101,7 @@ tab_model(M0, step.back.aic, step.fwd.aic,
 - Lower AIC values indicate a better-fitting model. 
 - We can conclude from the table, backward selection model will be the most appropriate one as it has the lowest AIC values and its R-squared and adjusted R-squared is the same.
 
-## Check Linearlity
+## Assumption checking: Pct.BF vs Age
 ```{r}
 library(gridExtra)
 lm1 = lm(Pct.BF ~ Density, data = bodyfat)
@@ -164,43 +164,54 @@ p6 = bodyfat %>% ggplot() +
   geom_hline(yintercept = 0)
 ```
 
-Age:
+
 ```{r}
 grid.arrange(p3, p4, ncol = 2)
 ```
-## Check Linearlity
+## Assumption checking: Pct.BF vs Density
 
-Density:
+
 ```{r}
 grid.arrange(p1, p2, ncol = 2)
 ```
 
-## Check Linearity
+## Assumption checking: Pct.BF vs Abdomen
 
-Abdomen:
+
 ```{r}
 grid.arrange(p5, p6, ncol = 2)
 ```
 
 
-## Check homoscedasticity
+## Assumption checking for the model (1)
 
 ```{r}
 library(ggfortify)
 autoplot(step.back.aic, which = 1)
 ```
 
-## Check Normality of Residuals
+- **Linearity: **The residuals seem to be randomly scattered around the horizontal line. However, there are a few outliers (points labeled with numbers), but they don't appear to form a systematic pattern. Overall the assumption of linearity seems to be reasonably met.
 
+- **Homoskedasticity: **The residuals don't appear to be fanning out or changing their variability over the range of the fitted values so the constant error variance assumption is met.
+
+## Assumption checking for the model (2)
+
+#### Independence
+
+- The independence of error terms is crucial and typically addressed during the initial phases of experimental design, i.e. **before data collection**. Each variable is designed to maintain its independence and since each observation doesn't inherently influence another, we can conclude that they are independent of each other.
+
+## Assumption checking for the model (3)
+
+#### Check Normality
 ```{r}
 autoplot(step.back.aic, which = 2)
 ```
 
-Apart from three points in the upper tail and one point in the lower tail, the majority of points lie quite close to the line in the QQ plot. Hence, the normality assumption for the residuals is reasonably well satisfied.
+- Apart from three points in the upper tail and one point in the lower tail, the majority of points lie quite close to the line in the QQ plot. Hence, the normality assumption for the residuals is reasonably well satisfied.
 
-Additionally, we have quite large sample size so we can also rely on the central limit theorem to give us approximately valid inferences.
+- Additionally, we have quite large sample size so we can also rely on the central limit theorem to give us approximately valid inferences.
 
-## Final fitted model
+## Final fitted model 
 ```{r}
 step.back.aic
 ```
@@ -208,9 +219,11 @@ step.back.aic
 - Fitted model:
 $$Pct.BF = 442.38 - 406.49 \times Density + 0.01 \times Age + 0.06 \times Abdomen$$
 
+## Discussion of results
 1. On average, holding the other variables constant, a year increase in age leads to a 0.01 increase in body fat percentage.
 2. On average, holding the other variables constant, a 1cm increase in abdomen leads to a 0.06 increase in body fat percentage.
 3. On average, holding the other variables constant, a unit increase in density leads to a decrease of 406.49 in body fat percentage.
+4. When all predictor variables are set to zero, the expected body fat percentage is 442.38%. However, this interpretation might not be practically meaningful, especially if a value of zero for these predictors isn't feasible or meaningful in real-world scenarios.
 
 ## Cross Validation
 
