@@ -99,7 +99,7 @@ tab_model(M0, step.back.aic, step.fwd.aic,
 
 - Generally, higher values of R-squared are better, but a very high R-squared could suggest overfitting, especially if it is much higher than the adjusted R-squared.
 - Lower AIC values indicate a better-fitting model. 
-- We can conclude from the table, backward selection model will be the most appropriate one as it has the lowest AIC values and its R-squared and adjusted R-squared is the same.
+- Given that we get the same results from backward selection model and forward selection model, and both of them have the lowest AIC values and its R-squared and adjusted R-squared is the same compared to the full model, we will be using backward model for further interpretation. 
 
 ## Assumption checking: Pct.BF vs Age
 ```{r}
