@@ -1,7 +1,7 @@
 ---
 title: "Body Fat Percentage Presentation"
 subtitle: "Group 013E01"
-author: "Joanne Lim, John Fu, Haoyuan Gao, Zhenchen Yi"
+author: "Joanne Lim, John Fu"
 format:
   revealjs:
     # self-contained: true
@@ -168,6 +168,7 @@ p6 = bodyfat %>% ggplot() +
 ```{r}
 grid.arrange(p3, p4, ncol = 2)
 ```
+- According to the linearity of Pct.BF abd age graph we can see there is one person which Pct.BF is 0, and the various age groups are not evenly distributed in the dataset. This may cause the deviation in the analyse.
 
 ## Assumption checking: Pct.BF vs Density
 
@@ -175,7 +176,7 @@ grid.arrange(p3, p4, ncol = 2)
 ```{r}
 grid.arrange(p1, p2, ncol = 2)
 ```
-
+- From the graph we can see that the Density almost perform the same as the variable Pct.BF.
 
 ## Assumption checking: Pct.BF vs Abdomen
 
@@ -303,7 +304,3 @@ grid.arrange(g1, g2, g3, ncol = 1)
 2. Simple_density has the lowest Rsquared value.
 
 Therefore, full($Pct.BF = 442.38 - 406.49 \times Density + 0.01 \times Age + 0.06 \times Abdomen$.) will be the best model.
-
-## Limitation
-- According to the linearity of Pct.BF abd age graph we can see there is one person which Pct.BF is 0, and the various age groups are not evenly distributed in the dataset. This may cause the deviation in the analyse.
-- From the graph we can see that the Density almost perfom the same as the variable Pct.BF.
