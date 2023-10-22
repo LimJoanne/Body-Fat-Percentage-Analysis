@@ -123,42 +123,42 @@ bodyfat = bodyfat %>%
 ```{r}
 p1 = bodyfat %>% ggplot() +
   aes(x = Density, y = Pct.BF)+
-  geom_point(size=3) +
+  geom_point(size=2) +
   labs(x = "Density",
        y = "Body Fat Percentage") +
   geom_smooth(method = "lm", se = FALSE)
 
 p2 = bodyfat %>% ggplot() +
   aes(x = Density, y = resid1) +
-  geom_point(size = 3) +
+  geom_point(size = 2) +
   labs(x = "Density",
        y = "Residual") +
   geom_hline(yintercept = 0)
 
 p3 = bodyfat %>% ggplot() +
   aes(x = Age, y = Pct.BF)+
-  geom_point(size=3) +
+  geom_point(size=2) +
   labs(x = "Age",
        y = "Body Fat Percentage") +
   geom_smooth(method = "lm", se = FALSE)
 
 p4 = bodyfat %>% ggplot() +
   aes(x = Age, y = resid2) +
-  geom_point(size = 3) +
+  geom_point(size = 2) +
   labs(x = "Age",
        y = "Residual") +
   geom_hline(yintercept = 0)
 
 p5 = bodyfat %>% ggplot() +
   aes(x = Abdomen, y = Pct.BF)+
-  geom_point(size=3) +
+  geom_point(size=2) +
   labs(x = "Abdomen",
        y = "Body Fat Percentage") +
   geom_smooth(method = "lm", se = FALSE)
 
 p6 = bodyfat %>% ggplot() +
   aes(x = Abdomen, y = resid3) +
-  geom_point(size = 3) +
+  geom_point(size = 2) +
   labs(x = "Abdomen",
        y = "Residual") +
   geom_hline(yintercept = 0)
