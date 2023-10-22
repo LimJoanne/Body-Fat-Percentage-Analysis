@@ -308,3 +308,17 @@ grid.arrange(g1, g2, g3, ncol = 1)
 2. Simple_density has the lowest R-squared value.
 
 Therefore, full($Pct.BF = 442.38 - 406.49 \times Density + 0.01 \times Age + 0.06 \times Abdomen$.) will be the best model.
+
+## Conclusions and recommendations
+
+- It can be concluded from the correlation analysis of the data that Pct.BF, as an important indicator for evaluating body composition, correlates very significantly with Density, Age, and Abdomen.
+
+- Using Pct.BF as the dependent variable and Density, Age, and Abdomen as the independent variables, the linear regression equation derived from the multiple linear stepwise regression analysis is
+
+$$Pct.BF = 442.38 - 406.49 \times Density + 0.01 \times Age + 0.06 \times Abdomen$$
+
+  Through Cross Validation, this linear regression equation is the optimal model, which is significant in that it provides a simple, accurate, and inexpensive method for calculating the Pct.BF again.
+
+- This linear regression equation for calculating Pct.BF does not differentiate for human gender, which is a shortcoming of this regression equation, and we hope to supplement and improve this regression equation through further research.
+
+
