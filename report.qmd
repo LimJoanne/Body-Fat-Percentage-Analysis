@@ -1,0 +1,27 @@
+---
+title: "report"
+format: html
+editor: visual
+---
+
+```{r, message=FALSE,error=FALSE,echo=FALSE,warning=FALSE}
+library(rticles)
+library(tinytex)
+library(ggplot2)
+library(pinp)
+library(MASS)
+library(dplyr)
+library(tidyverse)
+library(scales)
+library(stringr)
+library(grid)
+library(gridExtra)
+library(caret)
+```
+
+```{r}
+bodyfat <- read.table("bodyfat.txt", header = TRUE)
+M0 = lm(Pct.BF ~ ., data = bodyfat) #full model
+M1 = lm(Pct.BF ~ 1, data = bodyfat) #null model
+```
+
