@@ -1,23 +1,27 @@
 ---
-title: 013E01 Executive summary
+title: "013E01 Executive Summary"
 author:
   - John Fu
   - Lim Joanne
 papersize: letter
 fontsize: 9pt
 numbersections: true
-skip_final_break: true
+# Optional: Specify the depth of section number, default is 5
+secnumdepth: 3
+
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
   pinp::pinp: default
+skip_final_break: yes
+classoption:
+  - twocolumn
 vignette: >
   %\VignetteIndexEntry{Analysis of Body Fat Percentage in Men}
   %\VignetteKeywords{Body Fat, R-squared, AIC}
   %\VignettePackage{pinp}
   %\VignetteEngine{knitr::rmarkdown}
 ---
-
 
 ## `Data set.`
 The data set we use in our analysis was originally collected by SOCR to estimate the percentage of body fat determined by underwater weighing and various body circumference measurements for 250 men.

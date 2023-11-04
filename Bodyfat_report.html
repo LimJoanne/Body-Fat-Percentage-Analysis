@@ -13,7 +13,7 @@
 <meta name="author" content="Lim Joanne" />
 
 
-<title>013E01 Executive summary</title>
+<title>013E01 Executive Summary</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -254,6 +254,31 @@ if (window.hljs) {
 
 
 
+<style type="text/css">body {
+column-count: 2;
+column-gap: 20px;
+}
+@media screen and (max-width: 600px) {
+body {
+column-count: 1;
+}
+}
+
+figure {
+display: block;
+width: 100%;
+overflow: hidden;
+}
+
+img {
+max-width: 100%;
+display: block;
+margin-left: auto;
+margin-right: auto;
+page-break-inside: avoid;
+break-inside: avoid-column;
+}
+</style>
 
 
 
@@ -350,15 +375,16 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">013E01 Executive summary</h1>
+<h1 class="title toc-ignore">013E01 Executive Summary</h1>
 <h4 class="author">John Fu</h4>
 <h4 class="author">Lim Joanne</h4>
 
 </div>
 
 
-<div id="data-set." class="section level2">
-<h2><code>Data set.</code></h2>
+<div id="data-set." class="section level2" number="0.1">
+<h2><span class="header-section-number">0.1</span>
+<code>Data set.</code></h2>
 <p>The data set we use in our analysis was originally collected by SOCR
 to estimate the percentage of body fat determined by underwater weighing
 and various body circumference measurements for 250 men.</p>
@@ -366,8 +392,9 @@ and various body circumference measurements for 250 men.</p>
 variable for this analysis is <code>Pct.BF</code> - a variable measuring
 percentage body fat of men.</p>
 </div>
-<div id="analysis." class="section level2">
-<h2><code>Analysis.</code></h2>
+<div id="analysis." class="section level2" number="0.2">
+<h2><span class="header-section-number">0.2</span>
+<code>Analysis.</code></h2>
 <p>Our modeling began by first eliminating the ‘density’ variable from
 the data set due to its challenging nature of measurement in real-world
 settings and limited practical utility. Following this, we employed both
@@ -386,8 +413,9 @@ Age and Thigh.</p>
 with its slightly higher adjusted R-squared value and lower AIC
 value.</p>
 </div>
-<div id="assumptions." class="section level2">
-<h2><code>Assumptions.</code></h2>
+<div id="assumptions." class="section level2" number="0.3">
+<h2><span class="header-section-number">0.3</span>
+<code>Assumptions.</code></h2>
 <p>Before proceed to analyse our models results, we must first ensure
 that all our assumptions are satisfied. The key assumptions for our
 model are: 1. Linearity - the relationship between Y and x is linear. 2.
@@ -414,8 +442,9 @@ of each other.</p>
 <p>Therefore given all our assumptions are met, our multiple linear
 regression model can be reliably analysed.</p>
 </div>
-<div id="results." class="section level2">
-<h2><code>Results.</code></h2>
+<div id="results." class="section level2" number="0.4">
+<h2><span class="header-section-number">0.4</span>
+<code>Results.</code></h2>
 <p>Our final model is:</p>
 <p><span class="math display">\[\widehat{Pct.BF} = 5.04 + 0.0726Age -
 0.268Height - 0.451Neck + 0.822Abdomen - 0.195Hip + 0.224Thigh +
