@@ -6,9 +6,15 @@ author:
 papersize: letter
 fontsize: 9pt
 output:
-  pdf_document: default
+  pdf_document:
+    extra_dependencies: ["xcolor"]
+    includes:
+      in_header: header.tex
   pinp::pinp: default
-skip_final_break: yes
+skip_final_break: true
+header-includes:
+  - \usepackage{xcolor}
+  - \definecolor{mycolor}{RGB}{100,150,255}
 classoption:
   - twocolumn
 vignette: >
@@ -17,7 +23,7 @@ vignette: >
   %\VignettePackage{pinp}
   %\VignetteEngine{knitr::rmarkdown}
 ---
-## Abstract
+\textcolor{mycolor}{Abstract}
 This report undertakes analysis on the effect of potential risk factors on the percentage body fat. Utilizing a data set of 250 men, multiple linear regression models were constructed and refined using both forward and backward selection methods based on Akaike Information Criterion (AIC). The final model, chosen for its lower AIC and higher adjusted R-squared value, identifies eight key predictive measurements. Cross-validation techniques affirmed the model's predictive power, with a slight improvement in performance over the full model. In our discussion, we highlight the limitations of our analysis, i.e., the potential bias in our sample caused by the homogeneous nature, consisting only men, which might not accurately represent broader populations.
 
 ## Introduction
