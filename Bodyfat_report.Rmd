@@ -148,14 +148,14 @@ broom::tidy(step.back.aic) %>%
 ```
 
 ### Full Model
-```{r, message=FALSE,error=FALSE,echo=FALSE,warning=FALSE}
+```{r, message=FALSE,error=FALSE,echo=FALSE,warning=FALSE, results='asis', out.extra='\\small'}
 set.seed(2)
 cv_full = train(data = bodyfat, Pct.BF ~., method = 'lm', trControl= trainControl(method='cv',number = 10, verboseIter = FALSE))
 cv_full
 ```
 
 ### Simple Model
-```{r, message=FALSE,error=FALSE,echo=FALSE,warning=FALSE}
+```{r, message=FALSE,error=FALSE,echo=FALSE,warning=FALSE, results='asis', out.extra='\\small'}
 cv_simplified = train(data = bodyfat, Pct.BF ~ Age + Height + Neck + Abdomen + Hip + Thigh + Forearm + Wrist, method = 'lm', trControl= trainControl(method='cv',number = 10, verboseIter = FALSE))
 cv_simplified
 ```
