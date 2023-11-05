@@ -1,17 +1,12 @@
 ---
-title: "013E01 Executive Summary"
+title: 013E01 Executive Summary
 author:
   - John Fu
   - Lim Joanne
 papersize: letter
 fontsize: 9pt
-numbersections: true
-# Optional: Specify the depth of section number, default is 5
-secnumdepth: 3
-
 output:
   pdf_document: default
-  html_document: default
   pinp::pinp: default
 skip_final_break: yes
 classoption:
@@ -22,17 +17,25 @@ vignette: >
   %\VignettePackage{pinp}
   %\VignetteEngine{knitr::rmarkdown}
 ---
+## Abstract
+This report undertakes analysis on the effect of potential risk factors on the percentage body fat. Utilizing a data set of 250 men, multiple linear regression models were constructed and refined using both forward and backward selection methods based on Akaike Information Criterion (AIC). The final model, chosen for its lower AIC and higher adjusted R-squared value, identifies eight key predictive measurements. Cross-validation techniques affirmed the model's predictive power, with a slight improvement in performance over the full model. In our discussion, we highlight the limitations of our analysis, i.e., the potential bias in our sample caused by the homogeneous nature, consisting only men, which might not accurately represent broader populations.
 
-## `Data set.`
-The data set we use in our analysis was originally collected by SOCR to estimate the percentage of body fat determined by underwater weighing and various body circumference measurements for 250 men.
+## Introduction
+In this report, we consider effect of several factors, i.e., Age, Height, Neck, Abdomen, Hip Thigh, Forearm and Wrist. We apply a multiple linear regression framework to understand how these factors will affect percentage body fat.
 
-There are 16 variables included in the data and the key dependent variable for this analysis is `Pct.BF` - a variable measuring percentage body fat of men.
+## Data set
+The data set we use in our analysis was originally collected by [SOCR](http://wiki.stat.ucla.edu/socr/index.php/SOCR_Data_BMI_Regression) to estimate the percentage of body fat determined by underwater weighing and various body circumference measurements for 250 men.
+
+There are 16 variables included in the data and the key dependent variable for this analysis is `Pct.BF` - a variable measuring percentage body fat of men. 
+
+The histogram showcases the distribution of individuals across various percent body fat levels,with a noticeable peak between 20 and 25%
 
 ```{r, message=FALSE,error=FALSE,echo=FALSE,warning=FALSE}
 library(rticles)
 library(tinytex)
 library(ggplot2)
 library(pinp)
+library(wesanderson)
 library(MASS)
 library(dplyr)
 library(tidyverse)
@@ -40,11 +43,34 @@ library(scales)
 library(stringr)
 library(grid)
 library(gridExtra)
+library(kableExtra)
 library(caret)
 ```
 
+```{r, echo=FALSE}
+bodyfat <- read.table("bodyfat.txt", header = TRUE)
+bodyfat <- bodyfat %>% select(-Density)
+M0 = lm(Pct.BF ~ ., data = bodyfat) #full model
+M1 = lm(Pct.BF ~ 1, data = bodyfat) #null model
+```
 
-## `Analysis.`
+```{r, echo=FALSE}
+step.back.aic = step(M0,
+                     direction = "backward",
+                     trace = FALSE)
+step.fwd.aic = step(M1, scope = list(lower = M1, upper = M0),
+                    direction = "forward", trace = FALSE)
+```
+
+```{r, message=FALSE,error=FALSE,echo=FALSE,warning=FALSE}
+bodyfat %>% ggplot() + aes(x = Pct.BF) +
+geom_histogram(fill = "pink1", color = "black")+
+labs(title = "Histogram of Percent Body Fat (Pct.BF)",
+x = "Percent Body Fat (Pct.BF)",
+y = "Frequency")
+```
+
+## Analysis
 Our modeling began by first eliminating the 'density' variable from the data set due to its challenging nature of measurement in real-world settings and limited practical utility. Following this, we employed both backward and forward selection model based on the AIC to identify the optimal predictors for body 
 fat percentage. 
 
@@ -54,25 +80,68 @@ Conversely, the forward selection began without any predictors, incrementally ad
 
 In conclusion, backward selection model appears to be more compelling with its slightly higher adjusted R-squared value and lower AIC value.
 
-## `Assumptions.`
+
+## Assumptions
 Before proceed to analyse our models results, we must first ensure that all our assumptions are satisfied. The key assumptions for our model are: 
 1. Linearity - the relationship between Y and x is linear.
 2. Independence - all the errors are independent of each other.
 3. Homoskedasticity - the errors have constant variance.
 4. Normality - the error follows a normal distribution.
 
-By looking at appendix __, we can determine if our assumptions are met. Since there is no obvious pattern (e.g. no smiley or frowny face) in the residual vs fitted values plot, therefore the linearity assumption is met. The residuals don't appear to be fanning out or changing their variability over the range ofthe fitted values so the constant error variance assumption is met, and thus the Homoskedasticity assumption is met. Also in the QQ plot, apart from the top 6 or so points, the majority of points lie quite close to the line in the QQ plot. Hence, the normality assumption for the residuals is reasonably well satisfied. Additionally, we have quite large sample size so we can also rely on the central limit theorem to give us approximately valid inferences. Lastly, the independence of error terms is crucial and typically addressed during the initial phases of experimental design, i.e. **before data collection**. Each variable is designed to maintain its independence and since each observation doesn't inherently influence another, we can conclude that they are independent of each other. 
+By looking at appendix 1, we can determine if our assumptions are met. Since there is no obvious pattern (e.g. no smiley or frowny face) in the residual vs fitted values plot, therefore the linearity assumption is met. The residuals don't appear to be fanning out or changing their variability over the range ofthe fitted values so the constant error variance assumption is met, and thus the Homoskedasticity assumption is met. Also in the QQ plot, apart from the top 6 or so points, the majority of points lie quite close to the line in the QQ plot. Hence, the normality assumption for the residuals is reasonably well satisfied. Additionally, we have quite large sample size so we can also rely on the central limit theorem to give us approximately valid inferences. Lastly, the independence of error terms is crucial and typically addressed during the initial phases of experimental design, i.e. **before data collection**. Each variable is designed to maintain its independence and since each observation doesn't inherently influence another, we can conclude that they are independent of each other. 
 
 Therefore given all our assumptions are met, our multiple linear regression model can be reliably analysed.
 
-## `Results.`
+## `Results`
 Our final model is:
 
-
-$$\widehat{Pct.BF} = 5.04 + 0.0726Age - 0.268Height - 0.451Neck + 0.822Abdomen - 0.195Hip + 0.224Thigh + 0.295Forearm - 1.731Wrist$$
+\begin{align*}
+\widehat{Pct.BF} &= 5.04 + 0.0726 \times Age - 0.268 \times Height \\ 
+                 &\quad - 0.451 \times Neck  + 0.822 \times Abdomen  \\
+                 &\quad - 0.195 \times Hip + 0.224 \times Thigh + 0.295 \\
+                 &\quad + 0.295 \times Forearm - 1.731 \times Wrist \\
+\end{align*}
 
 Our full model has 15 variables and an R-squared of 0.737. However, in our new simplified model, we dropped 7 variables and obtained an R-squared of 0.739 which is slightly higher than the full model. The in-sample performance of the final model provided an R-squared that shows that approximately 73.9% of the total variability in Pct.BF is explained by the explanatory variables.
 
 We used 10-fold cross validation to measure out-of-sample performance. From the output we are able to see that in the full model, it has a RMSE of 4.346 and MAE of 3.597. Conversely, the simplified model has a RMSE of 4.263 and MAE of 3.508. Thus we can see that the simplified model outperforms the full model. 
 
+Now we interpret the coefficients: (See Appendix 2)
+
 Making all the explanatory variables equal to zero, on average the predicted percentage body fat is 5.04%. Holding other variables constant, a year increase in age will leads to a 0.07 increase in body fat percentage. Holding all other variables constant, a 1cm increase in Height, on average would have a predicted decrease in body fat percentage by 0.268%. Holding other variables constant, a 1cm increase in Neck circumference, on average body fat percentage will decrease by 0.451%. Holding other variables constant, a 1cm increase in Abdomen circumference will lead to 0.822% increase in body fat percentage. Holding all variables constant, a 1cm increase in Hip circumference, on average would have a predicted decrease in body fat percentage by 0.195%. Holding other variables constant, a 1cm increase in Thigh circumference will lead to 0.224% increase in body fat percentage. Holding other variables constant, a 1cm increase in Forearm circumference will lead to 0.295% increase in body fat percentage. Holding other variables constant, a 1cm increase in Wrist circumference, on average body fat percentage will decrease by 1.731%.
+
+## Discussion and conclusion
+In conclusion, we examined how certain risk factors effect the percentage body fat of men by applying a multiple linear regression model to outline the effect of each of the factors. We found that each of the risk factors we examined have statistically significant effect on body fat percentage, except for Hip, Thigh and Forearm.
+
+However, there are some potential limitations. Most significantly the data itself being recorded on a homogeneous sample restricted to men, which may not generalize to women or to populations with diverse health profiles and demographics.
+
+
+## Appendix 1
+```{r, echo = FALSE, warning=FALSE}
+library(ggfortify)
+autoplot(step.back.aic, which = 1, ncol = 1) + theme_bw()
+autoplot(step.back.aic, which = 2, ncol = 1) + theme_bw()
+```
+
+## Appendix 2
+### Coefficients
+```{r message=FALSE,error=FALSE,echo=FALSE,warning=FALSE}
+broom::tidy(step.back.aic) %>% 
+  kable(digits = 2) %>%
+        kable_styling(bootstrap_options = c("striped", "hover"), 
+                      full_width = TRUE)
+```
+
+### Full Model
+```{r, message=FALSE,error=FALSE,echo=FALSE,warning=FALSE}
+set.seed(2)
+cv_full = train(data = bodyfat, Pct.BF ~., method = 'lm', trControl= trainControl(method='cv',number = 10, verboseIter = FALSE))
+cv_full
+```
+
+### Simple Model
+```{r, message=FALSE,error=FALSE,echo=FALSE,warning=FALSE}
+cv_simplified = train(data = bodyfat, Pct.BF ~ Age + Height + Neck + Abdomen + Hip + Thigh + Forearm + Wrist, method = 'lm', trControl= trainControl(method='cv',number = 10, verboseIter = FALSE))
+cv_simplified
+```
+

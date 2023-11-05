@@ -21,7 +21,41 @@ library(caret)
 
 ```{r}
 bodyfat <- read.table("bodyfat.txt", header = TRUE)
+bodyfat <- bodyfat %>% select(-Density)
 M0 = lm(Pct.BF ~ ., data = bodyfat) #full model
 M1 = lm(Pct.BF ~ 1, data = bodyfat) #null model
+```
+
+```{r}
+step.back.aic = step(M0,
+                     direction = "backward",
+                     trace = FALSE)
+step.fwd.aic = step(M1, scope = list(lower = M1, upper = M0),
+                    direction = "forward", trace = FALSE)
+```
+
+```{r}
+library(sjPlot)
+tab_model(M0, step.back.aic, step.fwd.aic, 
+          dv.labels = c("Full", "Backward", "Forward"),
+          show.ci = F, show.aic = T)
+```
+
+
+#assumption
+```{r}
+library(ggfortify)
+autoplot(step.back.aic, which = 1:2)
+```
+
+#model performance
+```{r}
+set.seed(2)
+cv_full = train(data = bodyfat, Pct.BF ~., method = 'lm', trControl= trainControl(method='cv',number = 10, verboseIter = FALSE))
+cv_full
+
+cv_simplified = train(data = bodyfat, Pct.BF ~ Age + Height + Neck + Abdomen + Hip + Thigh + Forearm + Wrist, method = 'lm', trControl= trainControl(method='cv',number = 10, verboseIter = FALSE))
+cv_simplified
+
 ```
 
