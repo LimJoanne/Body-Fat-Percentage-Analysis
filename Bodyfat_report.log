@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.4)  5 NOV 2023 19:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.4)  5 NOV 2023 20:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -481,18 +481,18 @@ Package rerunfilecheck Info: File `Bodyfat_report.out' has not changed.
 (rerunfilecheck)             Checksum: 9F48E07348B4CCF60F4D5496883423A6;532.
  ) 
 Here is how much of TeX's memory you used:
- 10936 strings out of 476232
- 167577 string characters out of 5795950
+ 10938 strings out of 476232
+ 167606 string characters out of 5795950
  1943530 words of memory out of 5000000
- 32698 multiletter control sequences out of 15000+600000
+ 32699 multiletter control sequences out of 15000+600000
  608699 words of font info for 77 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  75i,12n,79p,319b,449s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/leijunfu/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/leijunfu/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/leijunfu/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></Users/leijunfu/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/leijunfu/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/leijunfu/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></Users/leijunfu/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></Users/leijunfu/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></Users/leijunfu/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></Users/leijunfu/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Bodyfat_report.pdf (3 pages, 245949 bytes).
+Output written on Bodyfat_report.pdf (3 pages, 246783 bytes).
 PDF statistics:
- 137 PDF objects out of 1000 (max. 8388607)
- 103 compressed objects within 2 object streams
- 18 named destinations out of 1000 (max. 500000)
+ 140 PDF objects out of 1000 (max. 8388607)
+ 106 compressed objects within 2 object streams
+ 19 named destinations out of 1000 (max. 500000)
  56 words of extra memory for PDF output out of 10000 (max. 10000000)
 

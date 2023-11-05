@@ -53,7 +53,7 @@ library(scales)
 library(stringr)
 library(grid)
 library(gridExtra)
-library(kableExtra)
+#library(kableExtra)
 library(caret)
 ```
 
@@ -141,10 +141,10 @@ autoplot(step.back.aic, which = 2, ncol = 1) + theme_bw()
 
 ### Coefficients
 ```{r message=FALSE,error=FALSE,echo=FALSE,warning=FALSE}
-broom::tidy(step.back.aic) %>% 
-  kable(digits = 2) %>%
-        kable_styling(bootstrap_options = c("striped", "hover"), 
-                      full_width = TRUE)
+#broom::tidy(step.back.aic) %>% 
+  #kable(digits = 2) %>%
+    #    kable_styling(bootstrap_options = c("striped", "hover"), 
+           #           full_width = TRUE)
 ```
 
 ### Full Model
