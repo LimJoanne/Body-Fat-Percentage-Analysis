@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.4)  5 NOV 2023 11:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.4)  5 NOV 2023 11:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -555,90 +555,90 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 100.
 (c:/Users/User/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 125.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 127.
 (c:/Users/User/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 <Bodyfat_report_files/figure-latex/unnamed-chunk-4-1.pdf, id=25, 469.755pt x 325.215pt>
 File: Bodyfat_report_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pdf)
 <use Bodyfat_report_files/figure-latex/unnamed-chunk-4-1.pdf>
-Package pdftex.def Info: Bodyfat_report_files/figure-latex/unnamed-chunk-4-1.pdf  used on input line 130.
+Package pdftex.def Info: Bodyfat_report_files/figure-latex/unnamed-chunk-4-1.pdf  used on input line 133.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
 [1{c:/Users/User/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/Users/User/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}
 
 
  <./Bodyfat_report_files/figure-latex/unnamed-chunk-4-1.pdf>]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 182.
+(Font)              <10> on input line 185.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 182.
+(Font)              <7> on input line 185.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 182.
+(Font)              <5> on input line 185.
 <Bodyfat_report_files/figure-latex/unnamed-chunk-5-1.pdf, id=40, 469.755pt x 325.215pt>
 File: Bodyfat_report_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (type pdf)
 <use Bodyfat_report_files/figure-latex/unnamed-chunk-5-1.pdf>
-Package pdftex.def Info: Bodyfat_report_files/figure-latex/unnamed-chunk-5-1.pdf  used on input line 237.
+Package pdftex.def Info: Bodyfat_report_files/figure-latex/unnamed-chunk-5-1.pdf  used on input line 240.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
 <Bodyfat_report_files/figure-latex/unnamed-chunk-5-2.pdf, id=41, 469.755pt x 325.215pt>
 File: Bodyfat_report_files/figure-latex/unnamed-chunk-5-2.pdf Graphic file (type pdf)
 <use Bodyfat_report_files/figure-latex/unnamed-chunk-5-2.pdf>
-Package pdftex.def Info: Bodyfat_report_files/figure-latex/unnamed-chunk-5-2.pdf  used on input line 238.
+Package pdftex.def Info: Bodyfat_report_files/figure-latex/unnamed-chunk-5-2.pdf  used on input line 241.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 237--239
+Underfull \hbox (badness 10000) in paragraph at lines 240--242
 []
  []
 
 
-Overfull \hbox (2.74677pt too wide) in paragraph at lines 268--268
+Overfull \hbox (2.74677pt too wide) in paragraph at lines 271--271
  []\T1/lmr/m/n/10 estimate|
  []
 
 
-Overfull \hbox (3.38577pt too wide) in paragraph at lines 268--268
+Overfull \hbox (3.38577pt too wide) in paragraph at lines 271--271
  []\T1/lmr/m/n/10 std.error|
  []
 
 
-Overfull \hbox (0.58052pt too wide) in paragraph at lines 268--268
+Overfull \hbox (0.58052pt too wide) in paragraph at lines 271--271
  []\T1/lmr/m/n/10 statistic|
  []
 
 
-Overfull \hbox (13.27492pt too wide) in paragraph at lines 268--268
+Overfull \hbox (13.27492pt too wide) in paragraph at lines 271--271
 []\T1/lmr/m/n/10 (Intercept)|  
  []
 
 
-Overfull \hbox (8.24628pt too wide) in paragraph at lines 268--268
+Overfull \hbox (8.24628pt too wide) in paragraph at lines 271--271
 []\T1/lmr/m/n/10 Abdomen|  
  []
 
 
-Overfull \hbox (2.32999pt too wide) in paragraph at lines 268--268
+Overfull \hbox (2.32999pt too wide) in paragraph at lines 271--271
 []\T1/lmr/m/n/10 Forearm|  
  []
 
 
-Underfull \vbox (badness 7415) has occurred while \output is active []
+Underfull \vbox (badness 1348) has occurred while \output is active []
 
 [2{c:/Users/User/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/User/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/User/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc} <./Bodyfat_report_files/figure-latex/unnamed-chunk-5-1.pdf> <./Bodyfat_report_files/figure-latex/unnamed-chunk-5-2.pdf>]
-Overfull \hbox (90.37157pt too wide) in paragraph at lines 288--288
+Overfull \hbox (90.37157pt too wide) in paragraph at lines 291--291
 []\T1/lmtt/m/n/10 ## Summary of sample sizes: 224, 225, 224, 226, 225, 224, ...[] 
  []
 
 
-Overfull \hbox (127.12146pt too wide) in paragraph at lines 288--288
+Overfull \hbox (127.12146pt too wide) in paragraph at lines 291--291
 []\T1/lmtt/m/n/10 ## Tuning parameter 'intercept' was held constant at a value of TRUE[] 
  []
 
 
-Overfull \hbox (90.37157pt too wide) in paragraph at lines 308--308
+Overfull \hbox (90.37157pt too wide) in paragraph at lines 311--311
 []\T1/lmtt/m/n/10 ## Summary of sample sizes: 226, 224, 224, 225, 225, 225, ...[] 
  []
 
 
-Overfull \hbox (127.12146pt too wide) in paragraph at lines 308--308
+Overfull \hbox (127.12146pt too wide) in paragraph at lines 311--311
 []\T1/lmtt/m/n/10 ## Tuning parameter 'intercept' was held constant at a value of TRUE[] 
  []
 
@@ -655,13 +655,13 @@ Package rerunfilecheck Info: File `Bodyfat_report.out' has not changed.
 Here is how much of TeX's memory you used:
  12645 strings out of 476231
  196666 string characters out of 5794644
- 1944533 words of memory out of 5000000
+ 1943533 words of memory out of 5000000
  34345 multiletter control sequences out of 15000+600000
  598545 words of font info for 75 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,13n,79p,319b,447s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,13n,79p,319b,449s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/Users/User/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/Users/User/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/User/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/Users/User/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/User/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/User/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/Users/User/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/User/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/User/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Bodyfat_report.pdf (3 pages, 232706 bytes).
+Output written on Bodyfat_report.pdf (3 pages, 232747 bytes).
 PDF statistics:
  121 PDF objects out of 1000 (max. 8388607)
  90 compressed objects within 1 object stream

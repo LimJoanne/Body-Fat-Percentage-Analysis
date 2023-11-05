@@ -23,12 +23,17 @@ vignette: >
   %\VignettePackage{pinp}
   %\VignetteEngine{knitr::rmarkdown}
 ---
+\setlength{\parindent}{1.5em}
+
+\noindent
 \textcolor{mycolor}{Abstract.}
 This report undertakes analysis on the effect of potential risk factors on the percentage body fat. Utilizing a data set of 250 men, multiple linear regression models were constructed and refined using both forward and backward selection methods based on Akaike Information Criterion (AIC). The final model, chosen for its lower AIC and higher adjusted R-squared value, identifies eight key predictive measurements. Cross-validation techniques affirmed the model's predictive power, with a slight improvement in performance over the full model. In our discussion, we highlight the limitations of our analysis, i.e., the potential bias in our sample caused by the homogeneous nature, consisting only men, which might not accurately represent broader populations.
 
+\noindent
 \textcolor{mycolor}{Introduction.}
 In this report, we consider effect of several factors, i.e., Age, Height, Neck, Abdomen, Hip Thigh, Forearm and Wrist. We apply a multiple linear regression framework to understand how these factors will affect percentage body fat.
 
+\noindent
 \textcolor{mycolor}{Data set.}
 The data set we use in our analysis was originally collected by [SOCR](http://wiki.stat.ucla.edu/socr/index.php/SOCR_Data_BMI_Regression) to estimate the percentage of body fat determined by underwater weighing and various body circumference measurements for 250 men.
 There are 16 variables included in the data and the key dependent variable for this analysis is `Pct.BF` - a variable measuring percentage body fat of men. 
@@ -66,6 +71,7 @@ step.fwd.aic = step(M1, scope = list(lower = M1, upper = M0),
                     direction = "forward", trace = FALSE)
 ```
 
+\noindent
 ```{r, message=FALSE,error=FALSE,echo=FALSE,warning=FALSE}
 bodyfat %>% ggplot() + aes(x = Pct.BF) +
 geom_histogram(fill = "pink1", color = "black")+
@@ -74,6 +80,7 @@ x = "Percent Body Fat (Pct.BF)",
 y = "Frequency")
 ```
 
+\noindent
 \textcolor{mycolor}{Analysis.}
 Our modeling began by first eliminating the 'density' variable from the data set due to its challenging nature of measurement in real-world settings and limited practical utility. Following this, we employed both backward and forward selection model based on the AIC to identify the optimal predictors for body 
 fat percentage. 
@@ -84,7 +91,7 @@ Conversely, the forward selection began without any predictors, incrementally ad
 
 In conclusion, backward selection model appears to be more compelling with its slightly higher adjusted R-squared value and lower AIC value.
 
-
+\noindent
 \textcolor{mycolor}{Assumptions.}
 Before proceed to analyse our models results, we must first ensure that all our assumptions are satisfied. The key assumptions for our model are: 
 1. Linearity - the relationship between Y and x is linear.
@@ -96,6 +103,7 @@ By looking at appendix 1, we can determine if our assumptions are met. Since the
 
 Therefore given all our assumptions are met, our multiple linear regression model can be reliably analysed.
 
+\noindent
 \textcolor{mycolor}{Results.}
 Our final model is:
 
@@ -114,6 +122,7 @@ Now we interpret the coefficients: (See Appendix 2)
 
 Making all the explanatory variables equal to zero, on average the predicted percentage body fat is 5.04%. Holding other variables constant, a year increase in age will leads to a 0.07 increase in body fat percentage. Holding all other variables constant, a 1cm increase in Height, on average would have a predicted decrease in body fat percentage by 0.268%. Holding other variables constant, a 1cm increase in Neck circumference, on average body fat percentage will decrease by 0.451%. Holding other variables constant, a 1cm increase in Abdomen circumference will lead to 0.822% increase in body fat percentage. Holding all variables constant, a 1cm increase in Hip circumference, on average would have a predicted decrease in body fat percentage by 0.195%. Holding other variables constant, a 1cm increase in Thigh circumference will lead to 0.224% increase in body fat percentage. Holding other variables constant, a 1cm increase in Forearm circumference will lead to 0.295% increase in body fat percentage. Holding other variables constant, a 1cm increase in Wrist circumference, on average body fat percentage will decrease by 1.731%.
 
+\noindent
 \textcolor{mycolor}{Discussions and conclusions.}
 In conclusion, we examined how certain risk factors effect the percentage body fat of men by applying a multiple linear regression model to outline the effect of each of the factors. We found that each of the risk factors we examined have statistically significant effect on body fat percentage, except for Hip, Thigh and Forearm.
 
@@ -128,6 +137,7 @@ autoplot(step.back.aic, which = 2, ncol = 1) + theme_bw()
 ```
 
 ## Appendix 2
+
 ### Coefficients
 ```{r message=FALSE,error=FALSE,echo=FALSE,warning=FALSE}
 broom::tidy(step.back.aic) %>% 
