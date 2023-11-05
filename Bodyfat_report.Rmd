@@ -10,6 +10,7 @@ output:
     extra_dependencies: ["xcolor"]
     includes:
       in_header: header.tex
+      after_body: bib.tex
   pinp::pinp: default
 skip_final_break: true
 header-includes:
