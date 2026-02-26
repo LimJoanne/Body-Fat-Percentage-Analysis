@@ -1,12 +1,10 @@
 # Body Fat Percentage Analysis (013E01)
 
-## Overview
+## 💡 Overview
 
 **This repository was imported from my university's GitHub Enterprise account for academic purposes.**  
 
-The project analyzes potential risk factors affecting body fat percentage in 250 men. Multiple linear regression models were built and refined using forward and backward selection based on the Akaike Information Criterion (AIC). The final model identifies eight key predictors and its predictive performance was validated via cross-validation.  
-
-This repository contains all components of our DATA2002 group project, focused on analyzing potential risk factors affecting body fat percentage in 250 men through multiple linear regression. The project is presented in an pdf report.
+This repository contains all components of our DATA2002 group project, focused on analyzing potential risk factors affecting body fat percentage in 250 men. Multiple linear regression models were built and refined using forward and backward selection based on the Akaike Information Criterion (AIC). The project is presented in a pdf report.
 
 ## 📊 Report Details
 
